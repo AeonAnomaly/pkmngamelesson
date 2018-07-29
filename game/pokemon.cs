@@ -24,8 +24,7 @@ namespace game
             name = pokemonName;
             pmElement = pokemonElement;
             setAttacks();
-            Speed = PokemonSpeed;
-            
+            Speed = PokemonSpeed;                        
         }
 
         private void setAttacks()
@@ -84,8 +83,7 @@ namespace game
         {
             return assignedAttack[getAttackIndex].name;
         }
-        
-
+            
         public void PerformAttack(pokemon defPokemon, int attackIndex)
         {
             if (!isAlive)
@@ -113,7 +111,5 @@ namespace game
                 Display.FaintedPokemon(this);
             }
         }
-
-
     }
 }
