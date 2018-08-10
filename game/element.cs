@@ -9,6 +9,7 @@ namespace game
     public class element
     {
         public enum elements { normal, fight, flying, poison, ground, rock, bug, ghost, steel, fire, water, grass, electric, psychic, ice, dragon, dark, fairy};
+        public enum statusconditions { normal, poison, burn };
         public float[,] elementGrid = new float[18, 18]
         {
             { 1, 1, 1, 1, 1, 0.5f, 1, 0, 0.5f, 1, 1, 1, 1, 1, 1, 1, 1, 1 } ,

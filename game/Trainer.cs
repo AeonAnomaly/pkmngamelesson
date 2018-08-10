@@ -11,10 +11,11 @@ namespace game
     {
         Random rand = new Random();
         public string trainerName;
-        bool isPlayer;
+        public bool isPlayer { get; set; }
         public pokemon[] partyofPokemon = new pokemon[3];
         public int Alive { get; set; }
         public pokemon activePokemon { get; set; }
+        private int timeOut = 2000;
 
         public Trainer(string name, bool playerCheck = false)
         {
@@ -25,8 +26,6 @@ namespace game
         
         public void setParty(pokemon[] pokemonList)
         {
-            if (isPlayer)
-            {
                 for (int i = 0; i < 3; i++)
                 {
                     string input;
@@ -46,33 +45,76 @@ namespace game
                             else
                             {
                                 Console.WriteLine("That is not a valid Pokemon.");
-                                Thread.Sleep(2000);
+                                Thread.Sleep(timeOut);
                             }                            
                         }
                         else
                         {
                             Console.WriteLine("That is not a valid input.");
-                            Thread.Sleep(2000);
+                            Thread.Sleep(timeOut);
                         }
                     } while (!selected);                    
                     Console.WriteLine("You have selected " + partyofPokemon[i].name);                    
                     partyofPokemon[i].isAvailable = false;
-                    Thread.Sleep(2000);
+                    Thread.Sleep(timeOut);
                     Console.Clear();
+                }                                   
+        }   
+        public void setAIParty(pokemon[] pokemonList)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                partyofPokemon[i] = pokemonList[rand.Next(pokemonList.Length)];
+                while (partyofPokemon[i].isAvailable == false)
+                {
+                    partyofPokemon[i] = pokemonList[rand.Next(pokemonList.Length)];
+                }
+                partyofPokemon[i].isAvailable = false;
+            }
+            activePokemon = partyofPokemon[0];
+        }
+
+        public void CheckPlayerAlive(Trainer AItrainer, ref bool PartyisStillAlive)
+        {
+            if (!activePokemon.isAlive)
+            {
+                Display.FaintedPokemon(this.activePokemon);
+                Alive--;
+                if (Alive > 0)
+                {                    
+                    Battle.SwitchActions(this, AItrainer, false);
+                }
+                else
+                {
+                    Console.WriteLine(trainerName + " has run out of Pokemon!");
+                    PartyisStillAlive = false;
+                    Thread.Sleep(timeOut);
                 }
             }
-            if (!isPlayer)
+        }
+
+        public void CheckAIAlive(ref bool PartyisStillAlive)
+        {
+            if (!activePokemon.isAlive)
             {
-                for (int i = 0; i < 3; i++)
-                {   
-                    partyofPokemon[i] = pokemonList[rand.Next(pokemonList.Length)];
-                    while (partyofPokemon[i].isAvailable == false)
+                Display.FaintedPokemon(this.activePokemon);
+                Alive--;
+                if (Alive > 0)
+                {
+                    do
                     {
-                        partyofPokemon[i] = pokemonList[rand.Next(pokemonList.Length)];
-                    }
-                    partyofPokemon[i].isAvailable = false;
+                        activePokemon = partyofPokemon[rand.Next(partyofPokemon.Length)];
+                    } while (activePokemon.hp <= 0);
+                    Console.WriteLine(trainerName + " sends out " + activePokemon.name);
+                    Thread.Sleep(timeOut);
+                }
+                else
+                {
+                    Console.WriteLine("All of " + trainerName + "'s Pokemon have fainted!");
+                    PartyisStillAlive = false;
+                    Thread.Sleep(timeOut);
                 }
             }            
-        }                                           
+        }
     }
 }

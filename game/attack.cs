@@ -11,13 +11,15 @@ namespace game
         public int damage { get; set; }
         public elements attackElement { get; set; }
         public string name { get; set; }
+        public statusconditions attackStatus { get; set; }
         
 
-        public attack(int dmg, elements ele, string attackName)
+        public attack(int dmg, elements ele, string attackName, statusconditions status)
         {
             damage = dmg;
             attackElement = ele;
             name = attackName;
+            attackStatus = status;
         }        
     }
 }

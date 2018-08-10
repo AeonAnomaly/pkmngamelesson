@@ -5,3 +5,7 @@ C:\Users\Aaron\source\repos\game\game\obj\Debug\game.csprojAssemblyReference.cac
 C:\Users\Aaron\source\repos\game\game\obj\Debug\game.csproj.CoreCompileInputs.cache
 C:\Users\Aaron\source\repos\game\game\obj\Debug\game.exe
 C:\Users\Aaron\source\repos\game\game\obj\Debug\game.pdb
+C:\Users\Aaron\source\repos\game\game\bin\Debug\game.exe.manifest
+C:\Users\Aaron\source\repos\game\game\bin\Debug\game.application
+C:\Users\Aaron\source\repos\game\game\obj\Debug\game.exe.manifest
+C:\Users\Aaron\source\repos\game\game\obj\Debug\game.application
